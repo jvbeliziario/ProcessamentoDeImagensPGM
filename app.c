@@ -69,14 +69,16 @@ int main() {
     }
 
     printf("\nDigite um valor inteiro para o tom de cinza (0-255): ");
-    if (scanf("%d", &L) != 1) {
-
-        // Limpa o buffer de entrada e evita loop infinito
-        // Verifica se o valor inserido é um número inteiro e válido
+    char input[32];
+    if (!fgets(input, sizeof(input), stdin)) {
+        fprintf(stderr, "Erro ao ler entrada.\n");
+        free(imageData);
+        return EXIT_FAILURE;
+    }
+    char extra;
+    if (sscanf(input, "%d %c", &L, &extra) != 1) {
         fprintf(stderr, "Entrada inválida. Deve ser um número inteiro.\n");
         free(imageData);
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF);
         return EXIT_FAILURE;
     }
 
