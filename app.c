@@ -54,11 +54,18 @@ unsigned char* readPGM(const char *filename, int *width, int *height) {
     return pixels;
 }
 
+void negativeImage(unsigned char *imageData, int width, int height) {
+    for (int i = 0; i < width * height; i++) {
+        imageData[i] = 255 - imageData[i];
+    }
+}
+
 void filterImage(unsigned char *imageData, int width, int height, int L) {
     for (int i = 0; i < width * height; i++) {
         imageData[i] = (imageData[i] < 128) ? 0 : L;
     }
 }
+
 
 int main() {
     int width, height, L;
